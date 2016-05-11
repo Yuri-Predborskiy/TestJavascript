@@ -19,9 +19,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     
     <style>
-        body, html {
-            height: 100%;
-        }
         body {
             font-size: 24px;
         }
@@ -52,6 +49,7 @@
         .button {
             display: inline-block;
             border: 1px solid green;
+            margin-right: 5px;
             margin-bottom: 5px;
             width: 45px;
             background-image: linear-gradient(to bottom,#5C5,#383 100%);
@@ -169,11 +167,6 @@
     <div class="container main-content">
         <div class="skyblue hidden-xs col-sm-3 col-md-3">
             <ul id="questionButtons">
-                <li class="button">1</li>
-                <li class="button">2</li>
-                <li class="button">3</li>
-                <li class="button">4</li>
-                <li class="button">5</li>
             </ul>
         </div>
         <div class="yellow col-xs-12 col-sm-9 col-md-9 questionBlock">
@@ -215,13 +208,6 @@
             alert("adding one answer");
             answerBlockSelector.append(answerTags.replace("{answerText}", "default answer text"));
         }
-        
-        // set active question on click
-        $(".button").on("click", function() {
-            $(".button").removeClass("active");
-            $(this).addClass("active");
-            loadQuestion($(this).html());
-        });
         
         class Question {
             constructor(text) {
@@ -268,6 +254,9 @@
         q1.answers = ["var 1", "var 2", "long answer<br>line 2<br>line 3"];
         
         qs.push(q1);
+        qs.push(q1);
+        qs.push(q1);
+        qs.push(q1);
         
         function loadQuestion(index) {
             var currQuest = qs[index-1];
@@ -279,6 +268,25 @@
             });
         }
         
+    </script>
+    <script type="application/javascript">
+            // add questions to the list
+        var questionButtonTags = "<li class=\"button\">{index}</li>";
+        //$(document).load(function() {
+            qs.forEach(function(el, index) {
+                // for each question create
+                buttonContainerSelector.append(questionButtonTags.replace("{index}", index+1));
+            });
+        //});
+        
+                // set active question on click
+        $(".button").on("click", function() {
+            $(".button").removeClass("active");
+            $(this).addClass("active");
+            loadQuestion($(this).html());
+        });
+        
+
     </script>
 </body>
 </html>
