@@ -19,8 +19,20 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     
     <style>
+        body, html {
+            height: 100%;
+        }
         body {
             font-size: 24px;
+        }
+        
+        .questionBlock {
+            height: 100%;
+            overflow-y: scroll;
+        }
+        
+        .main-content {
+            height: 50vh;
         }
         
         .yellow {
@@ -137,7 +149,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container main-content">
         <div class="skyblue hidden-xs col-sm-3 col-md-3">
             <ul id="questionButtons">
                 <li class="button">1</li>
@@ -147,7 +159,7 @@
                 <li class="button">5</li>
             </ul>
         </div>
-        <div class="yellow col-xs-12 col-sm-9 col-md-9">
+        <div class="yellow col-xs-12 col-sm-9 col-md-9 questionBlock">
             <p>Current question</p>
             <p id="questionText">Question text will be loaded here</p>
             <button onclick="addAnswer()">Add answer</button>
@@ -189,10 +201,6 @@
             $(this).addClass("active");
             loadQuestion($(this).html());
         });
-        
-        function loadQuestion(index) {
-            alert("loading question number " + index);
-        }
         
         class Question {
             constructor(text) {
@@ -236,10 +244,22 @@
         qs.push(q);
         
         var q1 = new Question("konnichiwa");
+        q1.answers = ["var 1", "var 2", "very long answer<br>a<br>a<br>a<br>a<br>" +
+               "a<br>a<br>a<br>a<br>a<br>a<br>a<br> a<br>a<br>a<br>a<br>a<br>a<br>" + 
+               "a<br>a<br>a<br>a<br>a<br> a<br>a<br>a<br>a<br>a<br>a<br>a<br>a"];
         
-        q1.answers = ["var 1", "var 2", "very long answer\na\na\na\na\n" +
-               "a\na\na\na\na\na\na\n a\na\na\na\na\na\n" + 
-               "a\na\na\na\na\n a\na\na\na\na\na\na\na"];
+        qs.push(q1);
+        
+        function loadQuestion(index) {
+            var currQuest = qs[index-1];
+            questionTextSelector.html(currQuest.questionText);
+            var answers = currQuest.answers;
+            answerBlockSelector.html("");
+            answers.forEach(function(el) {
+                answerBlockSelector.append(answerTags.replace("{answerText}", el));
+            });
+        }
+        
     </script>
 </body>
 </html>
