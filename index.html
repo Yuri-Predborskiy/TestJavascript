@@ -103,6 +103,23 @@
             background-image: none;
         }
         
+        ul#answers {
+            list-style: none;
+            padding: 0;
+        }
+        
+        label {
+            display: block;
+            padding-left: 1.5em;
+        }
+        
+        .selected {
+            background-color: azure;
+        }
+        
+        input[type=radio] {
+            margin: 0 0.5em 0 -1em;
+        }
     </style>
 </head>
     
@@ -163,7 +180,11 @@
             <p>Current question</p>
             <p id="questionText">Question text will be loaded here</p>
             <button onclick="addAnswer()">Add answer</button>
-            <ol id="answers"></ol>
+            <ul id="answers">
+                <li><label><input type="radio" name="answers">purity</label></li>
+                <li><label><input type="radio" name="answers">impurity</label></li>
+                <li><label><input type="radio" name="answers">Tide</label></li>
+            </ul>
         </div>
     </div>
     
@@ -182,7 +203,7 @@
         "use strict";
         // set up global variables
         var buttonTags = "<li class=\"button\">{number}</li>";
-        var answerTags = "<li class=\"answer\">{answerText}</li>";
+        var answerTags = "<li><label><input type=\"radio\" name=\"answers\">{answerText}</label></li>";
         
         var buttonContainerSelector = $("#questionButtons");
         var questionTextSelector = $("#questionText");
@@ -244,9 +265,7 @@
         qs.push(q);
         
         var q1 = new Question("konnichiwa");
-        q1.answers = ["var 1", "var 2", "very long answer<br>a<br>a<br>a<br>a<br>" +
-               "a<br>a<br>a<br>a<br>a<br>a<br>a<br> a<br>a<br>a<br>a<br>a<br>a<br>" + 
-               "a<br>a<br>a<br>a<br>a<br> a<br>a<br>a<br>a<br>a<br>a<br>a<br>a"];
+        q1.answers = ["var 1", "var 2", "long answer<br>line 2<br>line 3"];
         
         qs.push(q1);
         
